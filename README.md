@@ -15,7 +15,9 @@
 		* [favicon.png](https://webster.cs.washington.edu/images/kevinbacon/favicon.png)
 		* [kevin_bacon.jpg](https://webster.cs.washington.edu/images/kevinbacon/kevin_bacon.jpg)
 		* [mymdb.png](https://webster.cs.washington.edu/images/kevinbacon/mymdb.png)
-
+	* connecting to MySQL
+		* [Sample PHP code](http://watzekdi.net/cs393mysql.php)
+		
 * EXPECTED OUTPUT
 	* [Initial Page](http://courses.cs.washington.edu/courses/cse154/16au/homework/8/output/out-0-initial.png)
 	* [Some outputs from imdb_small (text only)](http://courses.cs.washington.edu/courses/cse154/16au/homework/8/output/imdb_small_output.txt)	
