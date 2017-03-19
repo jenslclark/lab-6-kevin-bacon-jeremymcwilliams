@@ -1,0 +1,39 @@
+
+body{
+
+background-color:#dad9d4;
+font-family: Verdana, Geneva, sans-serif;
+
+
+
+}
+#frame{
+
+	width:90%;
+	margin:auto;
+	background-color:#fff;
+	
+}
+
+#banner, #w3c{
+	background-color:#333;
+	color:#fff;	
+	padding:10px;
+	
+}
+#main{
+
+text-align:center;
+}
+
+fieldset{
+
+	width:340px;
+	margin:auto;
+	margin-bottom:20px;
+
+}
+legend{
+
+	text-align:left;
+}
