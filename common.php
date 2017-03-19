@@ -53,6 +53,7 @@ function forms(){
 }
 
 
+/*  database functions  */
 
 
 function dbConnect(){
@@ -74,6 +75,24 @@ function dbConnect(){
 	} 
 	
 	return $db;
+
+}
+
+
+function getActorId($firstname, $lastname, $db){
+
+	try { 
+		$stmt = $db->prepare("SELECT * FROM actors WHERE first_name like :firstName and last_name=:lastName order by film_count desc limit 1" );
+		$data=array(":firstName"=>"$firstname%", ":lastName"=>$lastname);
+		$stmt->execute($data);
+		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+		
+		$id=$rows[0]["id"];
+		return $id;
+
+	} catch (Exception $e) {
+		return false;
+	}	
 
 }
 
