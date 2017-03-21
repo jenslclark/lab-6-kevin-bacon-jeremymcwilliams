@@ -4,15 +4,17 @@ require_once("common.php");
 $firstname=$_REQUEST["firstname"];
 $lastname=$_REQUEST["lastname"];
 
+
 $db=dbConnect();
 if ($id=getActorId($firstname, $lastname, $db)){
+	$h1="Results for $firstname $lastname";
 
 	$result=$id;
 
 }
 else{
 
-	$result="no matches";
+	$h1="No results for $firstname $lastname";
 
 }
 
@@ -36,7 +38,7 @@ else{
 			<?php pageHeader();?>
 
 			<div id="main">
-				<h1><?= $result?></h1>
+				<h1><?= $h1?></h1>
 				
 				
 				<?php forms();?>
