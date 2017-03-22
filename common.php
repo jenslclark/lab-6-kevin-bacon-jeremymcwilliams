@@ -96,6 +96,29 @@ function getActorId($firstname, $lastname, $db){
 
 }
 
+function getBacon($db, $actor_id){
+
+/*
+
+reform into join
+
+select movies.name, movies.year from movies, roles 
+where roles.actor_id=$actor_id and roles.movie_id=movies.id 
+and movies.id in 
+(select movies.id from movies, roles, actors where actors.last_name='Bacon' 
+and actors.first_name='Kevin' and actors.id=roles.actor_id and roles.movie_id=movies.id);
+
+*/
+
+
+
+
+
+}
+
+
+
+
 
 
 
