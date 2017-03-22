@@ -1,5 +1,24 @@
 <?php
 require_once("common.php");
+$firstname=$_REQUEST["firstname"];
+$lastname=$_REQUEST["lastname"];
+$db=dbConnect();
+if ($id=getActorId($firstname, $lastname, $db)){
+	
+	$rows=getBacon($db, $id);
+	$table=formatTable($rows);
+	$h1="Results for $firstname $lastname";
+
+	$result=$id;
+
+}
+else{
+
+	$h1="No results for $firstname $lastname";
+
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -17,10 +36,10 @@ require_once("common.php");
 			<?php pageHeader(); ?>
 
 			<div id="main">
-				<h1>The One Degree of Kevin Bacon</h1>
-				<p>Type in an actor's name to see if he/she was ever in a movie with Kevin Bacon!</p>
-				<p><img src="https://webster.cs.washington.edu/images/kevinbacon/kevin_bacon.jpg" alt="Kevin Bacon" /></p>
-
+				<h1><?= $h1?></h1>
+	
+				<?php echo "<p>Films with $firstname $lastname and Kevin Bacon</p>";?>
+				<?php echo $table;?>			
 				<?php forms();?>
 			</div> <!-- end of #main div -->
 			<?php pageFooter(); ?>

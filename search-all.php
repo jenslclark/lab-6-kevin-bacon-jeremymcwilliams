@@ -7,6 +7,9 @@ $lastname=$_REQUEST["lastname"];
 
 $db=dbConnect();
 if ($id=getActorId($firstname, $lastname, $db)){
+	
+	$rows=getMoviesByActorID($db, $id);
+	$table=formatTable($rows);
 	$h1="Results for $firstname $lastname";
 
 	$result=$id;
@@ -17,7 +20,7 @@ else{
 	$h1="No results for $firstname $lastname";
 
 }
-
+getActorByName($db, $firstname, $lastname);
 
 
 ?>
@@ -39,6 +42,9 @@ else{
 
 			<div id="main">
 				<h1><?= $h1?></h1>
+				<?php echo $id;?>
+				
+				<?php echo $table;?>
 				
 				
 				<?php forms();?>

@@ -52,6 +52,26 @@ function forms(){
 
 }
 
+function formatTable($rows){
+	$c=1;
+	$table="<table>";
+	$table.="<thead><td>#</td><td>Name</td><td>Year</td></thead>\n";
+	foreach ($rows as $row){
+		
+		$name=$row["name"];
+		$year=$row["year"];
+		$table.="<tr><td>$c</td><td>$name</td><td>$year</td></tr>\n";
+		$c++;
+		
+		
+	}
+	
+	$table.="</table>";
+	return $table;
+	
+	
+}
+
 
 /*  database functions  */
 
@@ -86,7 +106,7 @@ function getActorId($firstname, $lastname, $db){
 		$data=array(":firstName"=>"$firstname%", ":lastName"=>$lastname);
 		$stmt->execute($data);
 		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC); 
-		
+	//	var_dump($rows);
 		$id=$rows[0]["id"];
 		return $id;
 
@@ -96,17 +116,51 @@ function getActorId($firstname, $lastname, $db){
 
 }
 
+
+function getMoviesByActorID($db, $actor_id){
+	
+	try { 
+		$stmt = $db->prepare("select movies.name, movies.year from movies, roles where roles.actor_id=:actor_id and roles.movie_id=movies.id order by movies.year desc" );
+		$data=array(":actor_id"=>$actor_id);
+		$stmt->execute($data);
+		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+		//var_dump($rows);
+		return $rows;
+
+
+	} catch (Exception $e) {
+		return false;
+	}	
+	
+	
+	
+}
+
+
 function getBacon($db, $actor_id){
+
+
+	try { 
+		$stmt = $db->prepare("select movies.name, movies.year from movies, roles where roles.actor_id=:actor_id and roles.movie_id=movies.id and movies.id in (select movies.id from movies, roles, actors where actors.last_name='Bacon' and actors.first_name='Kevin' and actors.id=roles.actor_id and roles.movie_id=movies.id) order by movies.year desc;
+" );
+		$data=array(":actor_id"=>$actor_id);
+		$stmt->execute($data);
+		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+		var_dump($rows);
+		
+		return $rows;
+
+
+	} catch (Exception $e) {
+		return false;
+	}
+
 
 /*
 
 reform into join
 
-select movies.name, movies.year from movies, roles 
-where roles.actor_id=$actor_id and roles.movie_id=movies.id 
-and movies.id in 
-(select movies.id from movies, roles, actors where actors.last_name='Bacon' 
-and actors.first_name='Kevin' and actors.id=roles.actor_id and roles.movie_id=movies.id);
+select movies.name, movies.year from movies, roles where roles.actor_id=$actor_id and roles.movie_id=movies.id and movies.id in (select movies.id from movies, roles, actors where actors.last_name='Bacon' and actors.first_name='Kevin' and actors.id=roles.actor_id and roles.movie_id=movies.id);
 
 */
 
@@ -117,7 +171,22 @@ and actors.first_name='Kevin' and actors.id=roles.actor_id and roles.movie_id=mo
 }
 
 
+function getActorByName($db, $firstName, $lastName){ 
 
+try { 
+$stmt = $db->prepare("SELECT * FROM actors WHERE first_name=:firstName and last_name=:lastName");
+$data=array(":firstName"=>$firstName, ":lastName"=>$lastName);
+$stmt->execute($data);
+$rows = $stmt->fetchAll(PDO::FETCH_ASSOC); 
+//var_dump($rows);
+
+return $rows;
+
+} catch (Exception $e) {
+return false;
+}	
+
+}
 
 
 
